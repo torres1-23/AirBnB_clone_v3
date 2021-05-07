@@ -4,7 +4,7 @@
 Usage:
     Register this Blueprint to an app in order to serve
     request to '/status' and '/stats' routes"""
- 
+
 from api.v1.views import app_views
 from models import storage
 

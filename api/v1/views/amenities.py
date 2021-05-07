@@ -4,7 +4,7 @@
 Usage:
     Add method to appviews blueprint to serve
     request to '/amenities' route"""
- 
+
 from api.v1.views import app_views
 from models import storage
 from flask import request, jsonify, abort
@@ -12,7 +12,7 @@ from models.amenity import Amenity
 
 
 @app_views.route('/amenities', methods=['GET', 'POST'], strict_slashes=False)
-def method():
+def amenities():
     if request.method == 'GET':
         amenities_list = []
         amenities_dict = storage.all(Amenity)
@@ -32,8 +32,9 @@ def method():
         return obj.to_dict(), 201
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['GET', 'DELETE', 'PUT'], strict_slashes=False)
-def method_by_id(amenity_id):
+@app_views.route('/amenities/<amenity_id>',
+                 methods=['GET', 'DELETE', 'PUT'], strict_slashes=False)
+def amenities_by_id(amenity_id):
     obj = storage.get(Amenity, amenity_id)
     if obj is None:
         abort(404)
