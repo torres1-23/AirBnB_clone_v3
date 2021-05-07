@@ -40,7 +40,7 @@ def reviews_by_places(place_id):
             body_dict["text"]
         except KeyError:
             abort(400, 'Missing text')
-        body_dict['city_id'] = city_id
+        body_dict['place_id'] = place_id
         review_obj = Review(**body_dict)
         review_obj.save()
         return review_obj.to_dict(), 201
