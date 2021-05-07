@@ -22,7 +22,7 @@ def cities_by_states(state_id):
     if request.method == 'GET':
         cities_list = []
         for value in state_obj.cities:
-             cities_list.append(value.to_dict())
+            cities_list.append(value.to_dict())
         return jsonify(cities_list)
     if request.method == 'POST':
         body_dict = request.get_json()
