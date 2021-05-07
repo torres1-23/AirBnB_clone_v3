@@ -2,8 +2,8 @@
 """This module defines a Flask Blueprint.
 
 Usage:
-    Register this Blueprint to an app in order to serve
-    request to '/status' and '/stats' routes"""
+    Add method to appviews blueprint to serve
+    request to '/states' route"""
  
 from api.v1.views import app_views
 from models import storage
