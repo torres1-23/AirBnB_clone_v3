@@ -30,7 +30,7 @@ def reviews_by_places(place_id):
         if body_dict is None:
             abort(400, 'Not a JSON')
         try:
-            body_dict["user_id"]
+            user_id = body_dict["user_id"]
         except KeyError:
             abort(400, 'Missing user_id')
         user_obj = storage.get(User, user_id)
