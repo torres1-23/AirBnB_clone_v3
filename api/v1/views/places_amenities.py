@@ -15,7 +15,7 @@ from os import getenv
 STORAGE = getenv('HBNB_TYPE_STORAGE')
 
 
-@app_views.route('places/<place_id>/amenities',
+@app_views.route('/places/<place_id>/amenities',
                  methods=['GET'], strict_slashes=False)
 def amenities_by_places(place_id):
     """Serve amenities route"""
@@ -37,7 +37,7 @@ def amenities_by_places(place_id):
         return jsonify(place_amenities)
 
 
-@app_views.route('places/<place_id>/amenities/<amenity_id>',
+@app_views.route('/places/<place_id>/amenities/<amenity_id>',
                  methods=['DELETE', 'POST'], strict_slashes=False)
 def amenity(place_id, amenity_id):
     """Serve amenities route"""
