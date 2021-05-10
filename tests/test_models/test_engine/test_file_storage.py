@@ -113,3 +113,128 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+
+@unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+class TestGetCountnoitems(unittest.TestCase):
+    """Test count and get no items"""
+
+    def setUp(self):
+        """SetUp Tests"""
+        storage = FileStorage()
+        for obj in list(storage.all().values()):
+            storage.delete(obj)
+        storage.save()
+
+    def test_a_count_no_items(self):
+        """Test count with 0 items"""
+        storage = FileStorage()
+        actual = 0
+        db_objs = storage.all(self)
+        self.assertEqual(0, len(db_objs))
+        count = storage.count()
+        self.assertEqual(0, count)
+
+    def test_b_get_no_items(self):
+        """Test get with 0 items"""
+        storage = FileStorage()
+        get = storage.get(User, 123)
+        self.assertEqual(None, get)
+
+
+@unittest.skipIf(models.storage_t == 'db', "not testing file storage")
+class TestZCountGet(unittest.TestCase):
+    """Test get and count ith items"""
+
+    def tearDown(self):
+        """Execute after each test"""
+        storage = FileStorage()
+        for obj in list(storage.all().values()):
+            storage.delete(obj)
+        storage.save()
+
+    def setUp(self):
+        """Set Up before each test"""
+        storage = FileStorage()
+        self.amenity = Amenity()
+        self.amenity.name = 'test'
+        self.amenity.save()
+        self.state = State()
+        self.state.name = 'California'
+        self.state.save()
+        self.city = City()
+        self.city.name = 'San_Mateo'
+        self.city.state_id = self.state.id
+        self.city.save()
+        self.user = User()
+        self.user.first_name = 'test'
+        self.user.last_name = 'test'
+        self.user.email = 'test'
+        self.user.password = 'test'
+        self.user.save()
+        self.place = Place()
+        self.place.city_id = self.city.id
+        self.place.user_id = self.user.id
+        self.place.name = 'test_place'
+        self.place.description = 'test_description'
+        self.place.number_rooms = 2
+        self.place.number_bathrooms = 1
+        self.place.max_guest = 4
+        self.place.price_by_night = 100
+        self.place.latitude = 120.12
+        self.place.longitude = 101.4
+        self.place.save()
+        self.review = Review()
+        self.review.place_id = self.city.id
+        self.review.user_id = self.user.id
+        self.review.save()
+
+    def test_a_get(self):
+        """checks get method with class and id inputs"""
+        storage = FileStorage()
+        duplicate = storage.get(Amenity, self.amenity.id)
+        expected = self.amenity.id
+        actual = duplicate.id
+        self.assertEqual(expected, actual)
+        duplicate = storage.get(State, self.state.id)
+        expected = self.state.id
+        actual = duplicate.id
+        self.assertEqual(expected, actual)
+        duplicate = storage.get(City, self.city.id)
+        expected = self.city.id
+        actual = duplicate.id
+        self.assertEqual(expected, actual)
+        duplicate = storage.get(User, self.user.id)
+        expected = self.user.id
+        actual = duplicate.id
+        self.assertEqual(expected, actual)
+        duplicate = storage.get(Place, self.place.id)
+        expected = self.place.id
+        actual = duplicate.id
+        self.assertEqual(expected, actual)
+        duplicate = storage.get(Review, self.review.id)
+        expected = self.review.id
+        actual = duplicate.id
+        self.assertEqual(expected, actual)
+
+    def test_b_count_id(self):
+        """checks count method by id"""
+        storage = FileStorage()
+        count = storage.count(Amenity)
+        self.assertEqual(1, count)
+        count = storage.count(State)
+        self.assertEqual(1, count)
+        count = storage.count(City)
+        self.assertEqual(1, count)
+        count = storage.count(User)
+        self.assertEqual(1, count)
+        count = storage.count(Place)
+        self.assertEqual(1, count)
+        count = storage.count(Review)
+        self.assertEqual(1, count)
+
+    def test_c_count(self):
+        """checks count method"""
+        storage = FileStorage()
+        count = storage.count()
+        self.assertEqual(6, count)
