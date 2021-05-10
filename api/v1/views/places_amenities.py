@@ -5,7 +5,6 @@ Usage:
     Add method to appviews blueprint to serve
     request to '/places/<place_id>/reviews' and
     '/reviews' route"""
-
 from api.v1.views import app_views
 from models import storage
 from flask import request, jsonify, abort
