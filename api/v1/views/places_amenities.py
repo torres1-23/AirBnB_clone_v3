@@ -62,5 +62,5 @@ def amenity(place_id, amenity_id):
             place_obj.amenities.append(amenity_obj)
         else:
             place_obj.amenities = amenity_obj
-        storage.save()
+        place_obj.save()
         return jsonify(amenity_obj.to_json()), 201
