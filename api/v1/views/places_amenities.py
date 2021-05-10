@@ -52,7 +52,7 @@ def amenity(place_id, amenity_id):
             place_obj.amenities.remove(amenity_obj)
         else:
             place_obj.amenity_ids.pop(amenity_obj.id, None)
-        place_obj.save()
+        storage.save()
         return jsonify({}), 200
     if request.method == 'POST':
         if (amenity_obj in place_obj.amenities or
@@ -62,4 +62,5 @@ def amenity(place_id, amenity_id):
             place_obj.amenities.append(amenity_obj)
         else:
             place_obj.amenities = amenity_obj
+        storage.save()
         return jsonify(amenity_obj.to_json()), 201
