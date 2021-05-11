@@ -23,7 +23,7 @@ def amenities_by_places(place_id):
     if place_obj is None:
         abort(404)
     if STORAGE == 'db':
-        amenities = storage.all(Amenity)
+        amenities = place_obj.amenities
         for obj in amenities:
             list_amenities.append(obj.to_dict())
     else:
