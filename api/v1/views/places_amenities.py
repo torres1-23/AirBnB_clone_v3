@@ -51,7 +51,7 @@ def amenity(place_id, amenity_id):
         if STORAGE == 'db':
             place_obj.amenities.remove(amenity_obj)
         else:
-            place_obj.amenity_ids.pop(amenity_obj.id, None)
+            place_obj.amenity_id.pop(amenity_obj.id, None)
         storage.save()
         return jsonify({}), 200
     if request.method == 'POST':
