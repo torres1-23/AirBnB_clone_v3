@@ -46,7 +46,7 @@ def amenity(place_id, amenity_id):
         abort(404)
     if request.method == 'DELETE':
         if (amenity_obj not in place_obj.amenities and
-                amenity_obj.id not in place_obj.amenities):
+                amenity_obj.id not in place_obj.amenity_id):
             abort(404)
         if STORAGE == 'db':
             place_obj.amenities.remove(amenity_obj)
@@ -56,7 +56,7 @@ def amenity(place_id, amenity_id):
         return jsonify({}), 200
     if request.method == 'POST':
         if (amenity_obj in place_obj.amenities or
-                amenity_obj.id in place_obj.amenities):
+                amenity_obj.id in place_obj.amenity_id):
             return jsonify(amenity_obj.to_json()), 200
         if STORAGE == 'db':
             place_obj.amenities.append(amenity_obj)
