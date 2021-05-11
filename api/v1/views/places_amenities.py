@@ -27,7 +27,7 @@ def amenities_by_places(place_id):
         for obj in amenities:
             list_amenities.append(obj.to_dict())
     else:
-        amenities_id = place_obj.amenities
+        amenities_id = place_obj.amenity_id
         for id in amenities_id:
             obj = storage.get(Amenity, id)
             list_amenities.append(obj.to_dict())
