@@ -61,6 +61,6 @@ def amenity(place_id, amenity_id):
         if STORAGE == 'db':
             place_obj.amenities.append(amenity_obj)
         else:
-            place_obj.amenities = amenity_obj
+            place_obj.amenity_id.append = amenity_obj.id
         place_obj.save()
         return jsonify(amenity_obj.to_json()), 201
